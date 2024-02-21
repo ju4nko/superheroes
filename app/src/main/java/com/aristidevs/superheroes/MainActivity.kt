@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val manager = LinearLayoutManager(this)
-        val decoration = DividerItemDecoration(this, manager.orientation)
+        //val manager = LinearLayoutManager(this)
+        //val decoration = DividerItemDecoration(this, manager.orientation)
         binding.rvSuperHero.layoutManager = LinearLayoutManager(this)
         binding.rvSuperHero.adapter = SuperheroAdapter(SuperheroProvider.superheroList)
-        binding.rvSuperHero.addItemDecoration(decoration)
+        //binding.rvSuperHero.addItemDecoration(decoration)
     }
 }
