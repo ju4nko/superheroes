@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aristidevs.superheroes.R
 import com.aristidevs.superheroes.Superhero
+import com.bumptech.glide.Glide
 
 class SuperHeroViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
@@ -18,5 +19,6 @@ class SuperHeroViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         superheroName.text = superhero.superHeroName
         realName.text = superhero.realName
         publisher.text = superhero.publisher
+        Glide.with(image.context).load(superhero.image).into(image)
     }
 }
