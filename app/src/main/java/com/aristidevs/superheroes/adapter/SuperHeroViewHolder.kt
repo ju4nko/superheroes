@@ -3,22 +3,26 @@ package com.aristidevs.superheroes.adapter
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aristidevs.superheroes.R
 import com.aristidevs.superheroes.Superhero
+import com.aristidevs.superheroes.databinding.ItemSuperheroBinding
 import com.bumptech.glide.Glide
 
-class SuperHeroViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+class SuperHeroViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-    val superheroName = view.findViewById<TextView>(R.id.tvSuperheroName)
-    val realName = view.findViewById<TextView>(R.id.tvRealname)
-    val publisher = view.findViewById<TextView>(R.id.tvPublisher)
-    val image = view.findViewById<ImageView>(R.id.ivSuperheroe)
+    val binding = ItemSuperheroBinding.bind(view)
+
 
     fun render(superhero: Superhero) {
-        superheroName.text = superhero.superHeroName
-        realName.text = superhero.realName
-        publisher.text = superhero.publisher
-        Glide.with(image.context).load(superhero.image).into(image)
+        binding.tvRealname.text = superhero.realName
+        binding.tvPublisher.text = superhero.publisher
+        binding.tvSuperheroName.text = superhero.superHeroName
+        Glide.with(binding.ivSuperheroe.context).load(superhero.image).into(binding.ivSuperheroe)
+        binding.ivSuperheroe.setOnClickListener {
+            Toast.makeText(binding.ivSuperheroe.context, superhero.realName, Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }
