@@ -1,9 +1,7 @@
 package com.aristidevs.superheroes.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aristidevs.superheroes.R
 import com.aristidevs.superheroes.Superhero
@@ -12,7 +10,11 @@ import com.aristidevs.superheroes.Superhero
 // Le pasamos un parámetro superhero que sea una lista de superheroes
 // Devuelve un RecyclerView adapter de tipo HeroHolder
 
-class SuperheroAdapter(private val superhero: List<Superhero>):RecyclerView.Adapter<SuperHeroViewHolder>(){
+class SuperheroAdapter(
+    private val superhero: List<Superhero>,
+    private val onClickListener: (Superhero) -> Unit,
+    private val onCLickDelete: (Int) -> Unit
+) : RecyclerView.Adapter<SuperHeroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperHeroViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +24,8 @@ class SuperheroAdapter(private val superhero: List<Superhero>):RecyclerView.Adap
     override fun getItemCount(): Int = superhero.size
 
     override fun onBindViewHolder(holder: SuperHeroViewHolder, position: Int) {
-        holder.render(superhero[position])
+        val item = superhero[position]
+        holder.render(item, onClickListener, onCLickDelete)
     }
 
 }
