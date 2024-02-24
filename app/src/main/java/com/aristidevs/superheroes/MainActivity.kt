@@ -9,14 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aristidevs.superheroes.adapter.SuperheroAdapter
 import com.aristidevs.superheroes.databinding.ActivityMainBinding
 
-private lateinit var binding: ActivityMainBinding
 
-private lateinit var adapter: SuperheroAdapter
-
-private var superheroMutableList: MutableList<Superhero> =
-    SuperheroProvider.superheroList.toMutableList()
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var adapter: SuperheroAdapter
+
+    private var superheroMutableList: MutableList<Superhero> =
+        SuperheroProvider.superheroList.toMutableList()
+
+    private val llmanager = LinearLayoutManager(this)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         )
         superheroMutableList.add(index = 3, superhero)
         adapter.notifyItemInserted(3)
+        llmanager.scrollToPositionWithOffset(3,20)
     }
 
     private fun initRecyclerView() {
@@ -41,8 +48,7 @@ class MainActivity : AppCompatActivity() {
             superhero = superheroMutableList,
             onClickListener = { superhero -> onItemSelected(superhero) },
             onCLickDelete = { onDeteleItem(it) })
-        val manager = LinearLayoutManager(this)
-        binding.rvSuperHero.layoutManager = LinearLayoutManager(this)
+        binding.rvSuperHero.layoutManager = llmanager
         binding.rvSuperHero.adapter = adapter
     }
 
