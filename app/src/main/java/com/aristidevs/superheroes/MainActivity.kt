@@ -21,7 +21,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.addSuperhero.setOnClickListener {createSuperHero()}
         initRecyclerView()
+    }
+
+    private fun createSuperHero() {
+        val superhero = Superhero(
+            "Incógnito",
+            "????????",
+            "AristidevsCorporation",
+            "https://pbs.twimg.com/profile_images/1037281659727634432/5x2XVPwB_400x400.jpg"
+        )
+        superheroMutableList.add(index = 3, superhero)
+        adapter.notifyItemInserted(3)
     }
 
     private fun initRecyclerView() {
