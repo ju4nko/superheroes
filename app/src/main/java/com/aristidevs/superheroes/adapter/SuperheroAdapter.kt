@@ -11,7 +11,7 @@ import com.aristidevs.superheroes.Superhero
 // Devuelve un RecyclerView adapter de tipo HeroHolder
 
 class SuperheroAdapter(
-    private val superhero: List<Superhero>,
+    private var superhero: List<Superhero>,
     private val onClickListener: (Superhero) -> Unit,
     private val onCLickDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<SuperHeroViewHolder>() {
@@ -26,6 +26,11 @@ class SuperheroAdapter(
     override fun onBindViewHolder(holder: SuperHeroViewHolder, position: Int) {
         val item = superhero[position]
         holder.render(item, onClickListener, onCLickDelete)
+    }
+
+    fun updateSuperheroes(superhero: List<Superhero>) {
+        this.superhero = superhero
+        notifyDataSetChanged()
     }
 
 }

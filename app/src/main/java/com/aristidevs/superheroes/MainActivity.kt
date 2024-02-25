@@ -3,12 +3,12 @@ package com.aristidevs.superheroes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.aristidevs.superheroes.adapter.SuperheroAdapter
 import com.aristidevs.superheroes.databinding.ActivityMainBinding
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.addSuperhero.setOnClickListener {createSuperHero()}
+        binding.etSearch.addTextChangedListener { userFilter ->
+            var superherosFiltered = superheroMutableList.filter { superhero -> superhero.superHeroName.lowercase().contains(userFilter.toString()) }
+            adapter.updateSuperheroes(superherosFiltered)
+        }
+        //binding.addSuperhero.setOnClickListener {createSuperHero()}
         initRecyclerView()
     }
 
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         )
         superheroMutableList.add(index = 3, superhero)
         adapter.notifyItemInserted(3)
-        llmanager.scrollToPositionWithOffset(3,20)
+        llmanager.scrollToPositionWithOffset(3, 20)
     }
 
     private fun initRecyclerView() {
