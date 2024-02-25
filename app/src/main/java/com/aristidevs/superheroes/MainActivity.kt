@@ -12,7 +12,7 @@ import com.aristidevs.superheroes.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-
+    // Comentario Nuevo
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapter: SuperheroAdapter
