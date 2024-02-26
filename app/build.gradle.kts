@@ -54,6 +54,8 @@ dependencies {
     // Skip this if you don't want to use integration libraries or configure Glide.
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
 
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

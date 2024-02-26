@@ -2,7 +2,11 @@ package com.aristidevs.superheroes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +16,7 @@ import com.aristidevs.superheroes.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    // Comentario Nuevo
+
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapter: SuperheroAdapter
@@ -27,12 +31,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.etSearch.addTextChangedListener { userFilter ->
-            var superherosFiltered = superheroMutableList.filter { superhero -> superhero.superHeroName.lowercase().contains(userFilter.toString()) }
-            adapter.updateSuperheroes(superherosFiltered)
-        }
+        configFilter()
+
         //binding.addSuperhero.setOnClickListener {createSuperHero()}
         initRecyclerView()
+        configSwipe()
+    }
+
+    private fun configSwipe() {
+        binding.swipe.setColorSchemeResources(R.color.red)
+        // Color del fondo del SwipeRefresh
+        //binding.swipe.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.black))
+        binding.swipe.setOnRefreshListener {
+            Log.i("juanjo", "Funciona")
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.swipe.isRefreshing = false
+            }, 2000)
+
+        }
+    }
+
+    private fun configFilter() {
+        binding.etSearch.addTextChangedListener { userFilter ->
+            var superherosFiltered = superheroMutableList.filter { superhero ->
+                superhero.superHeroName.lowercase().contains(userFilter.toString().lowercase())
+            }
+            adapter.updateSuperheroes(superherosFiltered)
+        }
     }
 
     private fun createSuperHero() {
